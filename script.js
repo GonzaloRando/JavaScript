@@ -3,6 +3,7 @@ let pedido;
 let cantidadUsuarios = 1;
 const totalUsuarios = [];
 
+
 class Usuario {
     constructor(datosUsuario, nombre, apellido, email, edad) {
         this.datosUsuario = datosUsuario;
@@ -26,6 +27,11 @@ const producto1 = new Productos("Malbec", "850");
 const producto2 = new Productos("Cabernet Sauvignon", "800");
 const producto3 = new Productos("Malbec Tannat", "1150");
 const producto4 = new Productos("Chardonnay", "1300");
+
+const preciosProductos = [producto1, producto2, producto3, producto4];
+const vinosEconomicos = preciosProductos.filter( preciosProductos => preciosProductos.precio < 1100);
+console.log(vinosEconomicos);
+
 producto1.sumaIva();
 producto2.sumaIva(); 
 producto3.sumaIva(); 
@@ -44,7 +50,7 @@ function infoUsuario(){
     usuario = new Usuario (cantidadUsuarios, nombreUsuario, apellidoUsuario, emailUsuario, edadUsuario);
     console.log(usuario);
 // Emi, acá quiero filtrar por edad los usuarios que vayan ingresando. Pero no estoy entendiendo el error. 
-// No sé si debo declarar la function o la var antes del .filter
+// No sé si debo declarar un array que englobe los const de la function
 // En cuanto a los elementos nose si debo ingresar parámetros o si debo ingresar la const edadUsuario que está dentro de la function.
 // Espero para poder corregirlo.
 // Además para agregar por ejemplo el filtro de los usuarios que gastaron más de x monto, debo crear un MAP no?. Gracias
