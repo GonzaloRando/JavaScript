@@ -49,20 +49,12 @@ function infoUsuario(){
 
     usuario = new Usuario (cantidadUsuarios, nombreUsuario, apellidoUsuario, emailUsuario, edadUsuario);
     console.log(usuario);
-// Emi, acá quiero filtrar por edad los usuarios que vayan ingresando. Pero no estoy entendiendo el error. 
-// No sé si debo declarar un array que englobe los const de la function
-// En cuanto a los elementos nose si debo ingresar parámetros o si debo ingresar la const edadUsuario que está dentro de la function.
-// Espero para poder corregirlo.
-// Además para agregar por ejemplo el filtro de los usuarios que gastaron más de x monto, debo crear un MAP no?. Gracias
-/*     const filtroEdad = infoUsuario.filter(edadUsuario => edadUsuario.valor >= 18);
-console.log(filtroEdad);
- */
+
 
     totalUsuarios.push(usuario);
     console.log(totalUsuarios.length);
     cantidadUsuarios++;
 }
-
 
 infoUsuario();
 
@@ -84,4 +76,26 @@ switch (productosSeleccionados) {
         break;
     default:
     break;
+}
+
+for(const saludo of totalUsuarios){
+    let contenedor = document.createElement("h2");
+    let contenedorTitulo = document.createElement("h3");
+
+    contenedor.innerHTML = `<h2> Hola ${saludo.nombre} ${saludo.apellido}, en que podemos ayudarte?<h2>`;
+    contenedorTitulo.innerHTML = `<h3>Nuestros productos son:</h3>`
+    document.body.appendChild(contenedor);
+    document.body.appendChild(contenedorTitulo);
+}
+
+for (const producto of Productos) {
+    let contenedor = document.createElement("div");
+    contenedor.innerHTML = `
+                            <div style="border: 1px solid;">
+                            <p>  Producto: <b>${producto.nombre}</b></p>
+                            <b> $ ${producto.precio}</b>
+                            <br>
+                            <button>COMPRAR</button></div>`;
+    document.body.appendChild(contenedor);
+    
 }
