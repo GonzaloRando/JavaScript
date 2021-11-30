@@ -1,4 +1,129 @@
-let usuario;
+class Vino {
+    constructor(id, cepa, cosecha, info, imagen, stock, cantidad) {
+        this.id = id;
+        this.cepa = cepa;
+        this.cosecha = cosecha;
+        this.info = info;
+        this.imagen = imagen;
+        this.stock = stock;
+        this.cantidad = cantidad || 0
+
+    }
+    aumentarCantidad() {
+        this.cantidad++
+    }
+}
+
+const vinos = [];
+const carrito = [];
+
+const vino1 = new Vino(1, "Malbec", "2021", "Envuelve los sentidos con un exquisito bouquet de ciruela dulce y picante.", "../Multimedia/Imagenes/PortfolioVinos/MalbecPremium.jpg", 10);
+const vino2 = new Vino(2, "Cabernet Sauvignon", "2019", "De color púrpura intenso con aromas brillantes de frutos rojos y especias.", "../Multimedia/Imagenes/PortfolioVinos/CabernetSauvSalta.jpg", 5);
+const vino3 = new Vino(3, "Malbec + Tannat", "2020", "Posee una alta estructura  y acidez que se equilibran en un final persistente.", "../Multimedia/Imagenes/PortfolioVinos/TannatMendoza.jpg", 4);
+const vino4 = new Vino(4, "Malbec Premium", "2015", "Calienta el paladar con notas de moras, arándanos y lavanda.", 6);
+const vino5 = new Vino(5, "Rosé", "2021", "Es un vino de cuerpo medio que seducirá tus sentidos con sus aromas florales.", 8);
+const vino6 = new Vino(6, "Torrontés", "2021", "Estalla con aromas tropicales de piña, melocotón y flor de azahar del naranjo.", 3);
+const vino7 = new Vino(7, "Trinitá", "2021", "Trinità tienta los sentidos con un aromático bouquet de café y especias.", 7);
+const vino8 = new Vino(8, "Arlene", "2020", "La serie Arlene es una cosecha elegante y poco común.", 6);
+
+vinos.push(vino1, vino2, vino3, vino4, vino5, vino6, vino7, vino8);
+
+const productos = document.getElementById('contenedorCarrito')
+
+for (const vino of vinos) {
+    const contenedor = document.createElement('div')
+    contenedor.className = 'card'
+    contenedor.innerHTML = `
+                            <div class="card-vinos" style="width: 18rem;">
+                            <img src="${vino.imagen}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">${vino.cepa}</h5>
+                                <p class="card-text">${vino.info}</p>
+                            </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"> Cosecha: ${vino.cosecha}</li>
+        <li class="list-group-item">
+        <button id=${vino.id} class="btn btn-primary reservar">Comprar</button>
+        </li>
+    </ul>
+    </div>`
+    contenedorCarrito.append (contenedor)
+    document.getElementById(`${vino.id}`).addEventListener(`click`, () => comprarVino(vino))
+}
+
+
+
+function comprarVino(producto){
+    let compra = carrito.find(el=> el.nombre === producto.nombre)
+    if(compra){
+        if(compra.cantidad < producto.stock){
+            compra.aumentarCantidad();
+        }
+        
+    }else{
+        carrito.push(producto);
+        producto.aumentarCantidad();
+    }
+    let total = 0;
+    for(let i=0; i<carrito.length;i++){
+        total += carrito[i].cantidad;
+    }
+    const contador = document.getElementById('contador');
+    contador.innerHTML = total;
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+function cargarLocalStorage(){
+    let carro = JSON.parse(localStorage.getItem('carrito'))
+    if(carro){
+        for(let i = 0; i < carro.length; i++){
+            carrito.push(new Vino(carro[i].id, carro[i].cepa, carro[i].cosecha, carro[i].stock, carro[i].cantidad))
+        }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* let usuario;
 let pedido;
 let cantidadUsuarios = 1;
 const totalUsuarios = [];
@@ -98,4 +223,4 @@ for (const producto of Productos) {
                             <button>COMPRAR</button></div>`;
     document.body.appendChild(contenedor);
     
-}
+} */
